@@ -13,7 +13,7 @@ Começando por uma rota de criação de anotações: nela, a ideia é integrar c
     Body: {
     "title": string; // título é o que será usado para buscar as demais informações no OMDB
     "notes": string; // minhas anotações
-    }  ```
+    } 
 
 Uma sugestão é usar o seguinte endpoint do OMDB para buscar as informações extras sobre o título em questão:
 
