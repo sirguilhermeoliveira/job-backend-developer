@@ -17,13 +17,13 @@ Começando por uma rota de criação de anotações: nela, a ideia é integrar c
 
 Uma sugestão é usar o seguinte endpoint do OMDB para buscar as informações extras sobre o título em questão:
 
-    ```curl --location 'http://www.omdbapi.com/?apikey=aa9290ba&t=assassins%2Bcreed'```
+    curl --location 'http://www.omdbapi.com/?apikey=aa9290ba&t=assassins%2Bcreed'```
 
 Em seguida, uma rota para listar as suas anotações. Nesta rota, você mesmo deixou como futura melhoria os filtros na query e a ordenação:
 
-    ```Endpoint: '/movie-reviews'
+    Endpoint: '/movie-reviews'
     Método: 'GET'
-    ```
+    
     
 <h1>Opcional</h1>
 
@@ -32,22 +32,22 @@ Capacidade de filtrar as suas anotações por título, atores ou diretores (caso
 
 Listar uma anotação específica:
 
-    ```Endpoint: '/movie-reviews/:id'
+    Endpoint: '/movie-reviews/:id'
     Método: 'GET'
-    Atualizar uma anotação:```
-
+    Atualizar uma anotação:
+    
 Atualizar uma anotação:
 
-    ```Endpoint: '/movie-reviews/:id'
+    Endpoint: '/movie-reviews/:id'
     Método: 'PUT'
-    Deletar uma anotação:```
+    Deletar uma anotação:
 Deletar uma anotação:
 
-    ```Endpoint: '/movie-reviews/:id'
+    Endpoint: '/movie-reviews/:id'
     Método: 'DELETE'
-       ```
+       
  <h1>Extra</h1>      
-    ```
+    
     TODO: Colocar paginação nas rotas de listagens
     TODO: Ter uma boa documentação de todas as rotas da api e disponibilizá-las no endpoint "/docs"
     TODO: Disponibilizar a api na internet. Para isso, gostaria de contar as visualizações que cada uma das minhas anotações vêm tendo. Criar também uma outra rota de listagem pra mostrar as mais visualizadas.```
@@ -58,7 +58,7 @@ Você pode gerar a sua chave de api diretamente no site do [OMDB Api Keys](https
 
 Caso queira utilizar a nossa:
 
-    ```apikey: aa9290ba```
+    apikey: aa9290ba
 
 <h1>Requisitos do projeto</h1>
 
