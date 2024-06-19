@@ -1,5 +1,3 @@
-Teste prático para Backend
-
 <h1>O Desafio</h1>
 
 Você é um programador backend que já trabalha a muito tempo na área e, apesar de trabalhar duro durante a semana, seu hobby preferido sempre foi avaliar filmes. Tendo feito isso durante anos, suas anotações começaram a se perder entre os arquivos de um computador e outro e você teve a brilhante ideia de organizá-las numa api simples, de modo que pudesse sempre voltar e encontrar facilmente suas anotações sobre os filmes já vistos.
@@ -19,14 +17,16 @@ Começando por uma rota de criação de anotações: nela, a ideia é integrar c
 
 Uma sugestão é usar o seguinte endpoint do OMDB para buscar as informações extras sobre o título em questão:
 
-```curl --location 'http://www.omdbapi.com/?apikey=aa9290ba&t=assassins%2Bcreed'```
+    ```curl --location 'http://www.omdbapi.com/?apikey=aa9290ba&t=assassins%2Bcreed'```
 
 Em seguida, uma rota para listar as suas anotações. Nesta rota, você mesmo deixou como futura melhoria os filtros na query e a ordenação:
 
     ```Endpoint: '/movie-reviews'
     Método: 'GET'
     ```
-Opcional
+    
+<h1>Opcional</h1>
+
 Ter a capacidade de ordenar por data de lançamento e avaliação, de maneira ascendente ou descendente.
 Capacidade de filtrar as suas anotações por título, atores ou diretores (caso preciso, incluir os demais campos no banco de dados).
 
@@ -46,7 +46,7 @@ Deletar uma anotação:
     ```Endpoint: '/movie-reviews/:id'
     Método: 'DELETE'
        ```
- Extra      
+ <h1>Extra</h1>      
     ```
     TODO: Colocar paginação nas rotas de listagens
     TODO: Ter uma boa documentação de todas as rotas da api e disponibilizá-las no endpoint "/docs"
@@ -60,27 +60,28 @@ Caso queira utilizar a nossa:
 
     ```apikey: aa9290ba```
 
-Requisitos do projeto
+<h1>Requisitos do projeto</h1>
 
 API Rest em Typescript desenvolvida utilizando o framework NestJS
 Utilização do Typeorm para se comunicar com o banco de dados
 Banco de dados MySQL
 
-O que nós ficaríamos felizes de ver em seu teste
+<h1>O que nós ficaríamos felizes de ver em seu teste</h1>
 
 Testes unitários
 Body, query e params com algum tipo de validação
 Documentação de todos os endpoints da api
 Prettier e eslint configurados no projeto
 
-O que nos impressionaria
+<h1>O que nos impressionaria<h1/>
 
 Testes de integração
 Aplicação facilmente rodável usando docker-compose
 Tratamento de erros bem estruturado
 Uso adequado (caso necessário) de interceptors e guards
 Uso de repositórios para se comunicar com o banco
-O que nós não gostaríamos
+
+<h1>O que nós não gostaríamos</h1>
 
 Descobrir que não foi você quem fez seu teste
 Ver commits grandes, sem muita explicação nas mensagens em seu repositório
