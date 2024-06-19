@@ -8,7 +8,7 @@ Entre todas as suas anotações de filmes, encontramos também um esboço da api
 
 Começando por uma rota de criação de anotações: nela, a ideia é integrar com a api do OMDB e salvar todas as informações que julgar relevante para o banco de dados, trazendo obrigatoriamente a data de lançamento (campo "Released" da api do OMDB) e avaliação (campo "imdbRating" da api do OMDB), em conjunto com o "body" abaixo.
 
-    ```Endpoint: '/movie-reviews'
+    Endpoint: '/movie-reviews'
     Método: 'POST'
     Body: {
     "title": string; // título é o que será usado para buscar as demais informações no OMDB
