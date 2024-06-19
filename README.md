@@ -73,7 +73,7 @@ Body, query e params com algum tipo de validação
 Documentação de todos os endpoints da api
 Prettier e eslint configurados no projeto
 
-<h1>O que nos impressionaria<h1/>
+<h1>O que nos impressionaria</h1>
 
 Testes de integração
 Aplicação facilmente rodável usando docker-compose
