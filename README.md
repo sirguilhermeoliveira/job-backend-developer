@@ -1,6 +1,6 @@
 Teste prático para Backend
 
-#O Desafio
+<h1>O Desafio</h1>
 
 Você é um programador backend que já trabalha a muito tempo na área e, apesar de trabalhar duro durante a semana, seu hobby preferido sempre foi avaliar filmes. Tendo feito isso durante anos, suas anotações começaram a se perder entre os arquivos de um computador e outro e você teve a brilhante ideia de organizá-las numa api simples, de modo que pudesse sempre voltar e encontrar facilmente suas anotações sobre os filmes já vistos.
 
@@ -10,16 +10,17 @@ Entre todas as suas anotações de filmes, encontramos também um esboço da api
 
 Começando por uma rota de criação de anotações: nela, a ideia é integrar com a api do OMDB e salvar todas as informações que julgar relevante para o banco de dados, trazendo obrigatoriamente a data de lançamento (campo "Released" da api do OMDB) e avaliação (campo "imdbRating" da api do OMDB), em conjunto com o "body" abaixo.
 
-Endpoint: '/movie-reviews'
+```Endpoint: '/movie-reviews'
 Método: 'POST'
 Body: {
     "title": string; // título é o que será usado para buscar as demais informações no OMDB
     "notes": string; // minhas anotações
-}
+} 
 
 Uma sugestão é usar o seguinte endpoint do OMDB para buscar as informações extras sobre o título em questão:
 
 curl --location 'http://www.omdbapi.com/?apikey=aa9290ba&t=assassins%2Bcreed'
+
 Em seguida, uma rota para listar as suas anotações. Nesta rota, você mesmo deixou como futura melhoria os filtros na query e a ordenação:
 
 Endpoint: '/movie-reviews'
@@ -48,7 +49,7 @@ TODO: Disponibilizar a api na internet. Para isso, gostaria de contar as visuali
 
 Instruções de como gerar a chave de API
 
-Você pode gerar a sua chave de api diretamente no site do OMDB Api Keys(https://www.omdbapi.com/apikey.aspx). Um email de confirmação deve chegar na sua conta com as credenciais e você só precisa clicar no link para ativá-las.
+Você pode gerar a sua chave de api diretamente no site do [OMDB Api Keys](https://www.omdbapi.com/apikey.aspx). Um email de confirmação deve chegar na sua conta com as credenciais e você só precisa clicar no link para ativá-las.
 
 Caso queira utilizar a nossa:
 
