@@ -14,7 +14,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     database: 'nestjs-job-backend-developer', 
     autoLoadEntities: true,
     synchronize: true,   
-  }),ReviewsModule, OmdbModule
+  }),ReviewsModule
 ],
   controllers: [AppController],
   providers: [AppService],
