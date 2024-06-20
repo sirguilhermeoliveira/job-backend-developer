@@ -3,6 +3,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ReviewsModule } from './modules/reviews/reviews.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ReviewsController } from './modules/reviews/reviews.controller';
+import { ReviewsService } from './modules/reviews/reviews.service';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -16,7 +18,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     synchronize: true,   
   }),ReviewsModule
 ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, ReviewsController],
+  providers: [AppService, ReviewsService],
 })
 export class AppModule {}
