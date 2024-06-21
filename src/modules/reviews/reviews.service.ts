@@ -21,14 +21,26 @@ export class ReviewsService {
   ) {}
 
   fetchMovieDetails(title: string) {
-    const url = `${this.omdbUrl}?t=${encodeURIComponent(title)}&apikey=${this.apiKey}`;
-    return this.httpService.get(url).pipe(
-      map((response: AxiosResponse) => response.data),
-    );
+    try {
+      const url = `${this.omdbUrl}?t=${encodeURIComponent(title)}&apikey=${this.apiKey}`;
+      return this.httpService.get(url).pipe(
+        map((response: AxiosResponse) => response.data),
+      );
+    } catch (error) {
+      throw new NotFoundException(`Movie with title ${title} not found in OMDB Database`);
+    }
   }
 
   async createReview(createReviewDto: ReviewDto) {
+    try{
+    const existingReview = await this.reviewRepository.findOne({ where: { title: createReviewDto.movieTitle } });
+
+    if (existingReview) {
+      throw new Error('Já existe um review para este filme.');
+    }
+
     const movieDetails$ = this.fetchMovieDetails(createReviewDto.movieTitle);
+
     const movieDetails = await firstValueFrom(movieDetails$);
 
     const review = this.reviewRepository.create({
@@ -38,21 +50,34 @@ export class ReviewsService {
       imdbRating: movieDetails.imdbRating,
     });
 
-    return this.reviewRepository.save(review);
+    this.reviewRepository.save(review);
+
+    return
+  } catch (error){
+    throw new NotFoundException(error);
+  }
   }
 
   async updateReview(movieTitle: string, updateReviewDto: UpdateReviewDto) {
-    const oldReview = await this.reviewRepository.findOne({ where: { title: movieTitle } });
+    try{
 
-    if (!oldReview) {
-      throw new NotFoundException(`Review with movie title ${movieTitle} not found`);
+      const oldReview = await this.reviewRepository.findOne({ where: { title: movieTitle } });
+      
+      if (!oldReview) {
+        throw new NotFoundException(`Review with movie title ${movieTitle} not found`);
+      }
+      
+      await this.reviewRepository.update(oldReview.id, updateReviewDto);
+      
+      return 
     }
- 
-    await this.reviewRepository.update(oldReview.id, updateReviewDto);
-  }
-
+      catch(error){
+        throw new NotFoundException(error);
+      }
+      }
   
   async findAllReviews(filter: { startYear?: string, endYear?: string }, page = 1, limit = 10): Promise<Pagination<Review>> {
+    try {
     const query = this.reviewRepository.createQueryBuilder('review');
 
     if (filter.startYear) {
@@ -65,12 +90,15 @@ export class ReviewsService {
 
     query.orderBy('review.year', 'DESC');
 
-    const reviewsPagination = await paginate<Review>(query, { page, limit });
+    return await paginate<Review>(query, { page, limit });
 
-    return reviewsPagination;
+  } catch(error) {
+    throw new NotFoundException(error);
+  }
   }
   
   async findOneReviewAndVisualization(movieTitle:string) {
+    try{
     const review = await this.reviewRepository.findOne({ where: { title: movieTitle } });
 
     if (!review) {
@@ -79,13 +107,35 @@ export class ReviewsService {
     return await this.reviewRepository.update(review.id, {
       visualizations: (review.visualizations || 0) + 1,
     });
+  } catch(error) {
+    throw new NotFoundException(error);
+  }
   }
 
   async findReviewsOrderedByVisualizations(page = 1, limit= 10) {
-    const query = this.reviewRepository.createQueryBuilder('review');
+    try{
 
-    const reviewsPagination = await paginate<Review>(query, { page, limit });
+      const query = this.reviewRepository.createQueryBuilder('review');
+      
+      return await paginate<Review>(query, { page, limit });
+    } catch (error){
+      throw new NotFoundException(error);
+    }
+  }
 
-    return reviewsPagination;
+  async findOneDelete(movieTitle:string) {
+    try{
+    const review = await this.reviewRepository.findOne({ where: { title: movieTitle } });
+
+    if (!review) {
+      throw new NotFoundException(`Review with movie title ${movieTitle} not found`);
+    }
+
+    await this.reviewRepository.delete(review.id);
+
+    return
+  } catch(error) {
+    throw new NotFoundException(error);
+  }
   }
 }
