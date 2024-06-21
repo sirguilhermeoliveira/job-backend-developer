@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Patch, Param, Get } from '@nestjs/common';
+import { Controller, Post, Body, Patch, Param, Get, Query } from '@nestjs/common';
 import { ReviewsService } from './reviews.service';
 import { CreateReviewDto } from './entities/create-reviews.entity';
 import { UpdateReviewDto } from './entities/update-reviews.entity';
@@ -18,7 +18,17 @@ export class ReviewsController {
   }
 
   @Get()
-  async findAllReviews() {
-    return this.reviewsService.findAllReviews();
+  async findAllReviews(@Query('startYear') startYear?: string, @Query('endYear') endYear?: string) {
+    return this.reviewsService.findAllReviews({ startYear, endYear });
+  }
+
+@Patch(':movieTitle/visualize') 
+async findOneReviewAndVisualization(@Param('movieTitle') movieTitle: string) {
+    return this.reviewsService.findOneReviewAndVisualization(movieTitle);
+  }
+
+  @Get('ordered/visualizations')
+  async findReviewsOrderedByVisualizations() {
+    return this.reviewsService.findReviewsOrderedByVisualizations();
   }
 }

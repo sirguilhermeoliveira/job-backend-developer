@@ -40,7 +40,7 @@ export class ReviewsService {
     return this.reviewRepository.save(review);
   }
 
-  async updateReview(movieTitle, updateReviewDto: UpdateReviewDto) {
+  async updateReview(movieTitle: string, updateReviewDto: UpdateReviewDto) {
     const oldReview = await this.reviewRepository.findOne({ where: { title: movieTitle } });
 
     if (!oldReview) {
@@ -51,8 +51,38 @@ export class ReviewsService {
   }
 
   
-  async findAllReviews() {
-    return this.reviewRepository.find();
+  async findAllReviews(filter: { startYear?: string, endYear?: string }) {
+    const query = this.reviewRepository.createQueryBuilder('review');
+
+    if (filter.startYear) {
+      query.andWhere('review.year >= :startYear', { startYear: filter.startYear });
+    }
+
+    if (filter.endYear) {
+      query.andWhere('review.year <= :endYear', { endYear: filter.endYear });
+    }
+
+    query.orderBy('review.year', 'DESC');
+
+    return query.getMany();
+  }
+  
+  async findOneReviewAndVisualization(movieTitle:string) {
+    const review = await this.reviewRepository.findOne({ where: { title: movieTitle } });
+
+    if (!review) {
+      throw new NotFoundException(`Review with movie title ${movieTitle} not found`);
+    }
+    return await this.reviewRepository.update(review.id, {
+      visualizations: (review.visualizations || 0) + 1,
+    });
   }
 
+  async findReviewsOrderedByVisualizations() {
+    return this.reviewRepository.find({
+      order: {
+        visualizations: 'DESC',
+      },
+    });
+  }
 }

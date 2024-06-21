@@ -16,4 +16,7 @@ export class Review {
 
   @Column()
   imdbRating: string;
+
+  @Column({default: 0})
+  visualizations: number;
 }
