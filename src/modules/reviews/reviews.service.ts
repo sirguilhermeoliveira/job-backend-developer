@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { AxiosResponse } from 'axios';
 import { map, firstValueFrom } from 'rxjs';
@@ -6,6 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateReviewDto } from './entities/create-reviews.entity';
 import { Review } from './entities/review.entity';
+import { UpdateReviewDto } from './entities/update-reviews.entity';
 
 @Injectable()
 export class ReviewsService {
@@ -38,4 +39,20 @@ export class ReviewsService {
 
     return this.reviewRepository.save(review);
   }
+
+  async updateReview(movieTitle, updateReviewDto: UpdateReviewDto) {
+    const oldReview = await this.reviewRepository.findOne({ where: { title: movieTitle } });
+
+    if (!oldReview) {
+      throw new NotFoundException(`Review with movie title ${movieTitle} not found`);
+    }
+ 
+    await this.reviewRepository.update(oldReview.id, updateReviewDto);
+  }
+
+  
+  async findAllReviews() {
+    return this.reviewRepository.find();
+  }
+
 }
