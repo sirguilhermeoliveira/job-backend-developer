@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios';
 import { AxiosResponse } from 'axios';
-import { map } from 'rxjs/operators';
-import { CreateReviewDto } from './entities/create-reviews.entity';
+import { map, firstValueFrom } from 'rxjs';
+import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { CreateReviewDto } from './entities/create-reviews.entity';
 import { Review } from './entities/review.entity';
 
 @Injectable()
@@ -11,10 +13,10 @@ export class ReviewsService {
   private readonly omdbUrl = 'https://www.omdbapi.com/';
 
   constructor(
-    private readonly httpService,
+    private readonly httpService: HttpService,
+    @InjectRepository(Review)
     private readonly reviewRepository: Repository<Review>,
   ) {}
-
 
   fetchMovieDetails(title: string) {
     const url = `${this.omdbUrl}?t=${encodeURIComponent(title)}&apikey=${this.apiKey}`;
@@ -24,16 +26,16 @@ export class ReviewsService {
   }
 
   async createReview(createReviewDto: CreateReviewDto) {
-    const movieDetails = this.fetchMovieDetails(createReviewDto.movieTitle);
+    const movieDetails$ = this.fetchMovieDetails(createReviewDto.movieTitle);
+    const movieDetails = await firstValueFrom(movieDetails$);
 
     const review = this.reviewRepository.create({
-        title: createReviewDto.movieTitle,
-        notes: createReviewDto.notes,
-        year: movieDetails.Year,
-        imdbRating: movieDetails.imdbRating,
-      });
-  
-      return this.reviewRepository.save(review);
+      title: createReviewDto.movieTitle,
+      notes: createReviewDto.notes,
+      year: movieDetails.Year,
+      imdbRating: movieDetails.imdbRating,
+    });
+
+    return this.reviewRepository.save(review);
   }
 }
-
