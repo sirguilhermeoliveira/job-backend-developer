@@ -1,3 +1,13 @@
+<h1>Rodar projeto</h1>
+
+docker-compose up
+
+ou
+
+>criar banco de dados MySQL local 
+>yarn no terminal para instalar as dependência
+>yarn start:dev
+
 <h1>O Desafio</h1>
 
 Você é um programador backend que já trabalha a muito tempo na área e, apesar de trabalhar duro durante a semana, seu hobby preferido sempre foi avaliar filmes. Tendo feito isso durante anos, suas anotações começaram a se perder entre os arquivos de um computador e outro e você teve a brilhante ideia de organizá-las numa api simples, de modo que pudesse sempre voltar e encontrar facilmente suas anotações sobre os filmes já vistos.
