@@ -1,4 +1,4 @@
-export class CreateReviewDto {
+export class CreateReviewEntity {
   movieTitle: string;
   notes: string;
 }

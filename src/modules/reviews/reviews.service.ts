@@ -4,10 +4,10 @@ import { AxiosResponse } from 'axios';
 import { map, firstValueFrom } from 'rxjs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateReviewDto } from './entities/create-reviews.entity';
 import { Review } from './entities/review.entity';
-import { UpdateReviewDto } from './entities/update-reviews.entity';
 import { paginate, Pagination } from 'nestjs-typeorm-paginate';
+import { ReviewDto } from './dto/review.dto';
+import { UpdateReviewDto } from './dto/update-review.dto';
 
 @Injectable()
 export class ReviewsService {
@@ -27,7 +27,7 @@ export class ReviewsService {
     );
   }
 
-  async createReview(createReviewDto: CreateReviewDto) {
+  async createReview(createReviewDto: ReviewDto) {
     const movieDetails$ = this.fetchMovieDetails(createReviewDto.movieTitle);
     const movieDetails = await firstValueFrom(movieDetails$);
 
@@ -81,11 +81,11 @@ export class ReviewsService {
     });
   }
 
-  async findReviewsOrderedByVisualizations() {
-    return this.reviewRepository.find({
-      order: {
-        visualizations: 'DESC',
-      },
-    });
+  async findReviewsOrderedByVisualizations(page = 1, limit= 10) {
+    const query = this.reviewRepository.createQueryBuilder('review');
+
+    const reviewsPagination = await paginate<Review>(query, { page, limit });
+
+    return reviewsPagination;
   }
 }

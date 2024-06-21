@@ -1,4 +1,4 @@
-export class UpdateReviewDto {
+export class UpdateReviewEntity {
     notes: string;
   }
   
