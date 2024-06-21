@@ -7,6 +7,7 @@ import { Repository } from 'typeorm';
 import { CreateReviewDto } from './entities/create-reviews.entity';
 import { Review } from './entities/review.entity';
 import { UpdateReviewDto } from './entities/update-reviews.entity';
+import { paginate, Pagination } from 'nestjs-typeorm-paginate';
 
 @Injectable()
 export class ReviewsService {
@@ -51,7 +52,7 @@ export class ReviewsService {
   }
 
   
-  async findAllReviews(filter: { startYear?: string, endYear?: string }) {
+  async findAllReviews(filter: { startYear?: string, endYear?: string }, page = 1, limit = 10): Promise<Pagination<Review>> {
     const query = this.reviewRepository.createQueryBuilder('review');
 
     if (filter.startYear) {
@@ -64,7 +65,9 @@ export class ReviewsService {
 
     query.orderBy('review.year', 'DESC');
 
-    return query.getMany();
+    const reviewsPagination = await paginate<Review>(query, { page, limit });
+
+    return reviewsPagination;
   }
   
   async findOneReviewAndVisualization(movieTitle:string) {
