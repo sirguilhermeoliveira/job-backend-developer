@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      - NODE_ENV=development
+      - TYPEORM_CONNECTION=mysql
+      - TYPEORM_HOST=db
+      - TYPEORM_PORT=3306
+      - TYPEORM_USERNAME=root
+      - TYPEORM_PASSWORD=Giovanna20@
+      - TYPEORM_DATABASE=nestjs-job-backend-developer
+      - TYPEORM_ENTITIES=dist/**/*.entity{.ts,.js}
+      - TYPEORM_SYNCHRONIZE=true
+    volumes:
+      - .:/app
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Giovanna20@
+      MYSQL_DATABASE: nestjs-job-backend-developer
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
