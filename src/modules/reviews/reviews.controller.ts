@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Patch, Param, Get, Query } from '@nestjs/common';
+import { Controller, Post, Body, Patch, Param, Get, Query, Delete } from '@nestjs/common';
 import { ReviewsService } from './reviews.service';
 import { ApiOperation } from '@nestjs/swagger';
 import { ReviewDto } from './dto/review.dto';
@@ -10,7 +10,7 @@ export class ReviewsController {
 
   @ApiOperation({ summary: 'Cria um review para um filme do OMDB e armazena no banco de dados' })
   @Post()
-  async create(@Body() createReviewDto: ReviewDto) {
+  async createReview(@Body() createReviewDto: ReviewDto) {
     return this.reviewsService.createReview(createReviewDto);
   }
 
@@ -30,6 +30,11 @@ export class ReviewsController {
   @ApiOperation({ summary: 'Visualiza um review feito e incrementa o contador de visualizações' })
 
 @Patch(':movieTitle/visualization') 
+async findOneDelete(@Param('movieTitle') movieTitle: string) {
+    return this.reviewsService.findOneDelete(movieTitle);
+  }
+
+  @Delete(':movieTitle') 
 async findOneReviewAndVisualization(@Param('movieTitle') movieTitle: string) {
     return this.reviewsService.findOneReviewAndVisualization(movieTitle);
   }
