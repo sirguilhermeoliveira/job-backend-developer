@@ -17,9 +17,13 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "prepare": "husky",
+    "commitlint": "commitlint --edit"
   },
   "dependencies": {
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
     "@nestjs/axios": "^3.0.2",
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
@@ -28,6 +32,8 @@
     "@nestjs/typeorm": "^10.0.2",
     "axios": "^1.7.2",
     "class-validator": "^0.14.1",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.7",
     "mysql2": "^3.10.1",
     "nestjs-typeorm-paginate": "^4.0.4",
     "reflect-metadata": "^0.2.0",
