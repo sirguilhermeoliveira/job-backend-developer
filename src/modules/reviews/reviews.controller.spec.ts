@@ -47,8 +47,7 @@ describe('ReviewsController', () => {
 
   it('should be defined', () => {
     expect(controller).toBeDefined();
-  });
-
+  })
   describe('createReview', () => {
     it('should create a review', async () => {
       const reviewDto: ReviewDto = { movieTitle: 'Vingadores', notes: 'Teste description' };
@@ -57,7 +56,23 @@ describe('ReviewsController', () => {
       jest.spyOn(service, 'createReview').mockResolvedValueOnce(createdReview as any);
 
       const result = await controller.createReview(reviewDto);
-      expect(result).toBe(createdReview);
+      expect(result).toEqual(createdReview);
+    });
+
+    it('should throw an error if review already exists', async () => {
+
+      try {
+        const reviewDto: ReviewDto = { movieTitle: 'Vingadores', notes: 'Teste description' };
+        const createdReview = { ...reviewDto, year: '2023', imdbRating: '8.5', title: reviewDto.movieTitle };
+        
+        jest.spyOn(service, 'createReview').mockResolvedValueOnce(createdReview as any);
+  
+        await controller.createReview(reviewDto);
+        await controller.createReview(reviewDto);
+      } catch (error) {
+        expect(error).toBeInstanceOf(Error);
+        expect(error.message).toBe(`Review already exists in database`);
+      }
     });
   });
 });

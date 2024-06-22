@@ -47,25 +47,6 @@ describe('ReviewsService', () => {
     expect(service).toBeDefined();
   });
 
-/*   describe('createReview', () => {
-    it('should create a review', async () => {
-      const reviewDto: ReviewDto = { movieTitle: 'Vingadores', notes: 'Great movie!' };
-      const movieDetails = { year: '2023', imdbRating: '8.5' };
-      const createdReview = { title: reviewDto.movieTitle, notes: reviewDto.notes, year: movieDetails.year, imdbRating: movieDetails.imdbRating };
-
-      jest.spyOn(service, 'fetchMovieDetails').mockResolvedValueOnce(movieDetails as never);
-      jest.spyOn(reviewRepository, 'findOne').mockResolvedValueOnce(undefined);
-      jest.spyOn(reviewRepository, 'create').mockReturnValueOnce(createdReview);
-      jest.spyOn(reviewRepository, 'save').mockResolvedValueOnce(createdReview);
-
-      const result = await service.createReview(reviewDto);
-
-      expect(result.title).toEqual(reviewDto.movieTitle);
-      expect(result.notes).toEqual(reviewDto.notes);
-      expect(result.year).toEqual(movieDetails.year);
-      expect(result.imdbRating).toEqual(movieDetails.imdbRating);
-    }); */
-
     it('should throw NotFoundException if review already exists', async () => {
       const reviewDto: ReviewDto = { movieTitle: 'Existing Movie', notes: 'Existing movie review' };
       jest.spyOn(reviewRepository, 'findOne').mockResolvedValueOnce({ title: reviewDto.movieTitle });

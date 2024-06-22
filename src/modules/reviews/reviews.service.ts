@@ -21,14 +21,10 @@ export class ReviewsService {
   ) {}
 
   fetchMovieDetails(title: string) {
-    try {
       const url = `${this.omdbUrl}?t=${encodeURIComponent(title)}&apikey=${this.apiKey}`;
       return this.httpService.get(url).pipe(
         map((response: AxiosResponse) => response.data),
       );
-    } catch (error) {
-      throw new NotFoundException(`Movie with title ${title} not found in OMDB Database`);
-    }
   }
 
   async createReview(createReviewDto: ReviewDto): Promise<Review> {
@@ -36,7 +32,7 @@ export class ReviewsService {
     const existingReview = await this.reviewRepository.findOne({ where: { title: createReviewDto.movieTitle } });
 
     if (existingReview) {
-      throw new Error('Já existe um review para este filme.');
+      throw new Error('Review already exists in database.');
     }
 
     const movieDetails$ = this.fetchMovieDetails(createReviewDto.movieTitle);
