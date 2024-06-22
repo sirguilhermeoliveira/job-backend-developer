@@ -13,7 +13,7 @@ services:
       - TYPEORM_HOST=db
       - TYPEORM_PORT=3306
       - TYPEORM_USERNAME=root
-      - TYPEORM_PASSWORD=Giovanna20@
+      - TYPEORM_PASSWORD=${TYPEORM_PASSWORD}
       - TYPEORM_DATABASE=nestjs-job-backend-developer
       - TYPEORM_ENTITIES=dist/**/*.entity{.ts,.js}
       - TYPEORM_SYNCHRONIZE=true
@@ -24,12 +24,13 @@ services:
     image: mysql:5.7
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: Giovanna20@
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: nestjs-job-backend-developer
     ports:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
-
+    env_file:
+      - .env
 volumes:
   mysql_data:

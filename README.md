@@ -1,6 +1,8 @@
 <h1>Rodar projeto</h1>
 
-docker-compose up
+Preencher o .env com as senhas que quiser
+
+docker compose up
 
 ou
 

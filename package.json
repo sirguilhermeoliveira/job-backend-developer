@@ -28,6 +28,7 @@
     "@nestjs/typeorm": "^10.0.2",
     "axios": "^1.7.2",
     "class-validator": "^0.14.1",
+    "dotenv": "^16.4.5",
     "mysql2": "^3.10.1",
     "nestjs-typeorm-paginate": "^4.0.4",
     "reflect-metadata": "^0.2.0",
