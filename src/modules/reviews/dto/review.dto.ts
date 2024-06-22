@@ -17,6 +17,4 @@ export class ReviewDto {
   })
   @IsString()
   notes: string;
-
-
 }

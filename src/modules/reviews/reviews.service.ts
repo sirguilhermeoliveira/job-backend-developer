@@ -31,7 +31,7 @@ export class ReviewsService {
     }
   }
 
-  async createReview(createReviewDto: ReviewDto) {
+  async createReview(createReviewDto: ReviewDto): Promise<Review> {
     try{
     const existingReview = await this.reviewRepository.findOne({ where: { title: createReviewDto.movieTitle } });
 
