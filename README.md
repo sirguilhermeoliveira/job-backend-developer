@@ -1,10 +1,13 @@
 <h1>Rodar projeto</h1>
 
-docker-compose up
+1 - Definir o .env
+
+2 - no terminal: docker compose up --build
 
 ou
 
 >criar banco de dados MySQL local 
+>definir as variáveis de ambiente no .env
 >yarn no terminal para instalar as dependência
 >yarn start:dev
 
