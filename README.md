@@ -6,10 +6,10 @@
 
 ou
 
->criar banco de dados MySQL local 
->definir as variáveis de ambiente no .env
->yarn no terminal para instalar as dependência
->yarn start:dev
+1 -criar banco de dados MySQL local 
+2 - definir as variáveis de ambiente no .env
+3 - yarn no terminal para instalar as dependência
+4 - yarn start:dev
 
 <h1>O Desafio</h1>
 
