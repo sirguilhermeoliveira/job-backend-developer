@@ -19,7 +19,11 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "prepare": "husky",
-    "commitlint": "commitlint --edit"
+    "commitlint": "commitlint --edit",
+    "migration:show": "typeorm-ts-node-commonjs -d src/database/config/typeorm.ts migration:show",
+    "migration:run": " typeorm-ts-node-commonjs -d src/database/config/typeorm.ts migration:run ",
+    "migration:revert": "typeorm-ts-node-commonjs -d src/database/config/typeorm.ts migration:revert",
+    "migration:create": "typeorm migration:create"
   },
   "dependencies": {
     "@commitlint/cli": "^19.3.0",
